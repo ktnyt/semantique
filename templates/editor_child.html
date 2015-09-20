@@ -1,0 +1,25 @@
+<ion-view title="">
+  <ion-content>
+
+    <div class="list">
+      <div class="item item-input-inset">
+        <label class="item-input-wrapper">
+          <input type="text" placeholder="Search" ng-model="keyword" ng-change="filter()">
+        </label>
+      </div>
+    </div>
+
+    <ion-list>
+      <ion-item class="item-button-right" collection-repeat="item in items">
+        <label class="item-input item-stacked-label">
+          <span class="input-label">{{item.predicate}}</span>
+          <input ion-autocomplete type="text" readonly="readonly" class="ion-autocomplete" autocomplete="off" ng-model="item.object" placeholder="URI" items-method="predicates(item, query)" loading-icon="ios" />
+        </label>
+        <a class="button button-positive button-clear" href="#/editor/{{encode(item.object)}}">
+          <i class="icon ion-edit"></i>
+        </a>
+      </ion-item>
+    </ion-list>
+
+  </ion-content>
+</ion-view>

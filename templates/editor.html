@@ -1,0 +1,19 @@
+<ion-view view-title="Semantique Editor">
+  <ion-content>
+
+    <ion-list>
+      <label class="item item-input item-stacked-label">
+        <span class="input-label">Type</span>
+        <input ion-autocomplete type="text" readonly="readonly" class="ion-autocomplete" autocomplete="off" ng-model="type" placeholder="URI" items-method="types(query)" loading-icon="ios" />
+      </label>
+      
+      <label class="item item-input item-stacked-label">
+        <span class="input-label">Instance</span>
+        <input ion-autocomplete type="text" readonly="readonly" class="ion-autocomplete" autocomplete="off" ng-model="instance" placeholder="URI" items-method="instances(query)" loading-icon="ios" />
+      </label> 
+
+      <a class="button button-full button-positive" href="#/editor/{{encode(instance)}}">Edit Instance</a>
+   </ion-list>
+
+  </ion-content>
+</ion-view>
