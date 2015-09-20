@@ -8,13 +8,13 @@ angular.module('semantique.services')
     return function(sparql) {
         var key = encode(sparql);
         if(key in dict) {
-            return $q(function(resolve) {
-                resolve(dict[key]);
-            });
+            return dict[key];
         } else {
             var url = base + encodeURIComponent(sparql);
-            return $http.get(url).then(function(res) {
-                return dict[key] = res;
+            return dict[key] = $http.get(url).then(function(res) {
+                return dict[key] = $q(function(resolve) {
+                    resolve(res);
+                })
             });
         }
     };
