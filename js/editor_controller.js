@@ -5,27 +5,18 @@ angular.module('semantique.controllers')
 
     $scope.types = function(query) {
         var sparql = 'SELECT DISTINCT ?type WHERE { ?instance <http://www.w3.org/1999/02/22-rdf-syntax-ns#type> ?type. }';
-        //return ['Loading...'];
-        return SparqlService(sparql).then(function(res) {
-            return res.data.results.bindings.map(function(object) {
-                return object.type.value;
-            }).filter(function(value) {
+        return SparqlService(sparql).then(function(array) {
+            return array.filter(function(value) {
                 return query.length > 0 ? value.toLowerCase().match(query.toLowerCase(), 'i') : false;
-            }).filter(function (x, i, self) {
-                return self.indexOf(x) === i;
             });
         });
     };
 
     $scope.instances = function(query) {
         var sparql = 'SELECT DISTINCT ?instance WHERE { ?instance <http://www.w3.org/1999/02/22-rdf-syntax-ns#type> <' + this.type + '>. }';
-        return SparqlService(sparql).then(function(res) {
-            return res.data.results.bindings.map(function(object) {
-                return object.instance.value;
-            }).filter(function(value) {
+        return SparqlService(sparql).then(function(array) {
+            return array.filter(function(value) {
                 return query.length > 0 ? value.toLowerCase().match(query.toLowerCase(), 'i') : false;
-            }).filter(function (x, i, self) {
-                return self.indexOf(x) === i;
             });
 
         });

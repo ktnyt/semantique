@@ -7,13 +7,8 @@ angular.module('semantique.controllers')
 
     var query = 'SELECT DISTINCT ?predicate ?object WHERE {<' + $scope.instance + '> ?predicate ?object.}';
 
-    SparqlService(query).then(function(res) {
-        $scope.all = $scope.items = res.data.results.bindings.map(function(object) {
-            return {
-                predicate: object.predicate.value,
-                object: object.object.value
-            };
-        });
+    SparqlService(query).then(function(array) {
+        $scope.all = $scope.items = array;
     });
 
     $scope.filter = function() {
@@ -34,10 +29,8 @@ angular.module('semantique.controllers')
 
     $scope.predicates = function(item, query) {
         var sparql = 'SELECT DISTINCT ?object WHERE { ?subject <' + item.predicate + '> ?object. }';
-        return SparqlService(sparql).then(function(res) {
-            return res.data.results.bindings.map(function(object) {
-                return object.object.value;
-            }).filter(function(value) {
+        return SparqlService(sparql).then(function(array) {
+            return array.filter(function(value) {
                 return query.length > 0 ? value.toLowerCase().match(query.toLowerCase(), 'i') :  false;
             }).filter(function (x, i, self) {
                 return self.indexOf(x) === i;
